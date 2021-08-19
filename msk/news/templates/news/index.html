@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>HOT NEWS</title>
+</head>
+<body>
+{% csrf_token %}  
+<h3>TRANG INDEX</h3>
+<button onclick="showAlert()">Show alert</button>
+<textarea id = 'text'>Đây là tiếng việt nam</textarea>
+<button onclick="responsiveVoice.speak(document.getElementById('text').textContent,'Vietnamese Male');" type="button" value="Play">Play</button>
+
+<script>
+    function showAlert() {
+        var myText = "This can be whatever text you like!";
+        alert (myText);
+    }
+</script>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=hF2UTfLf">
+    // setTimeout(responsiveVoice.speak("Welcome to the Responsive Voice website"),1500);
+
+</script>
+</body>
+</html>
+
