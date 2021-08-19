@@ -16,8 +16,10 @@
 
 <script>
     function showAlert() {
-        var myText = "This can be whatever text you like!";
-        alert (myText);
+        let mytext = document.getElementById('text').value;
+        alert (mytext);
+        responsiveVoice.speak(mytext,'Vietnamese Male');
+
     }
 </script>
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=hF2UTfLf">
