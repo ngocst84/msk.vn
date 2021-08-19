@@ -1,31 +1,116 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>HOT NEWS</title>
-</head>
-<body>
+{% extends "./base.html" %}
+
+{% block content %}
 {% csrf_token %}  
-<h3>TRANG INDEX</h3>
-<button onclick="showAlert()">Show alert</button>
-<textarea id = 'text'>Đây là tiếng việt nam</textarea>
-<button onclick="responsiveVoice.speak(document.getElementById('text').textContent,'Vietnamese Male');" type="button" value="Play">Play</button>
+
+<h3>SPEECH NEWS</h3>
+<div id = 'speech_new'>
+    Tin đang đọc: 
+    Ngoài ra, tân binh Jadon Sancho cũng đã chứng minh phẩm chất của một trong những ngôi sao hàng đầu Bundesliga trước khi gia nhập MU. Luke Shaw đang có phong độ rất cao trong suốt 18 tháng trở lại đây. Bộ đôi tuyển thủ Anh hứa hẹn sẽ sớm đạt đến đẳng cấp thế giới. De Gea không còn duy trì được sự ổn định nhưng nên nhớ rằng thủ thành người Tây Ban Nha từng ngôi sao duy nhất của MU đạt đến đẳng cấp thế giới trong giai đoạn đầu hậu kỷ nguyên Sir Alex Ferguson.
+    Với nhiều cái tên xuất sắc trong đội hình, sự kỳ vọng của các CĐV dành cho MU rất lớn. Sẽ là một thất bại nặng nề nếu “Quỷ đỏ” không thể giành được bất kỳ danh hiệu nào trong mùa giải năm nay với bộ tứ tấn công đáng sợ gồm Sancho, Cavani, Greenwood, Pogba và Bruno Fernandes, được hỗ trợ bởi Luke Shaw và phía dưới là bộ đôi trung vệ Varane và Maguire.
+</div>
+<audio id='player' controls autoplay onended="next()">
+    <source id ='s_mp3' src="https://texttospeech.responsivevoice.org/v1/text:synthesize?text=Anh%20b%E1%BB%9Fi%20t%C6%B0%C6%A1ng%20lai%20c%E1%BB%A7a%20Harry%20Kane%20%C4%91ang%20tr%E1%BB%9F%20th%C3%A0nh%20ch%E1%BB%A7%20%C4%91%E1%BB%81%20t%C3%A2m%20%C4%91i%E1%BB%83m%20c%E1%BB%A7a%20th%E1%BB%8B%20tr%C6%B0%E1%BB%9Dng%20m%C3%B9a%20h%C3%A8.%20Tottenham%20d%E1%BB%A9t%20kho%C3%A1t%20kh%C3%B4ng%20ch%E1%BB%8Bu%20b%C3%A1n%20Kane%20v%E1%BB%9Bi%20gi%C3%A1%20n%C3%A0o%20th%E1%BA%A5p%20h%C6%A1n%20150%20tri%E1%BB%87u%20b%E1%BA%A3ng%20v%C3%A0%20Man%20City%20%C4%91%C3%A3%202%20l%E1%BA%A7n%20ra%20gi%C3%A1%20kh%C3%B4ng%20th%C3%A0nh,%20nh%C6%B0ng%20gi%E1%BB%9D%20h%E1%BB%8D%20c%C3%B3%20c%C6%A1%20h%E1%BB%99i%20%C4%91%E1%BB%95i%20sang%20m%E1%BB%A5c%20ti%C3%AAu%20kh%C3%A1c%20v%C3%A0%20l%E1%BA%A1i%20l%C3%A0%20m%E1%BB%99t%20ch%C3%A2n%20s%C3%BAt%20m%C3%A0%20HLV%20Pep%20Guardiola%20r%E1%BA%A5t%20%C6%B0a%20th%C3%ADch%20trong.&lang=vi&engine=g3&name=&pitch=0.4&rate=0.6&volume=1&key=hF2UTfLf&gender=male" type="audio/mpeg">
+</audio>
+</div>
+<button onclick="play_pause()">Play</button>
+<button onclick="pre()"><</button>
+<button onclick="next()">></button>
+<h3>HOT NEWS</h3>
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Title</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Title 1</td>
+        <td><button onclick="speech_now('1')">></button></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Title 2</td>
+        <td><button onclick="speech_now('2')">></button></td>
+    </tr>
+</table>
+
 
 <script>
     function showAlert() {
-        let mytext = document.getElementById('text').value;
+        var mytext = document.getElementById('text').value;
         // alert (mytext);
-        responsiveVoice.speak(mytext,'Vietnamese Male');
+        responsiveVoice.speak(mytext,'Vietnamese Male',{pitch: 0.8,rate: 1.2});
 
     }
-</script>
-<script src="https://code.responsivevoice.org/responsivevoice.js?key=hF2UTfLf">
-    // setTimeout(responsiveVoice.speak("Welcome to the Responsive Voice website"),1500);
+    function nSpeech() {
+        var mytext = 'https://texttospeech.responsivevoice.org/v1/text:synthesize?text=Th%C3%B4ng%20tin%20n%C3%A0y%20tr%E1%BB%9F%20n%C3%AAn%20r%E1%BA%A5t%20%C4%91%C3%A1ng%20ch%C3%BA%20%C3%BD%20v%E1%BB%9Bi%20d%C6%B0%20lu%E1%BA%ADn%20Anh%20b%E1%BB%9Fi%20t%C6%B0%C6%A1ng%20lai%20c%E1%BB%A7a%20Harry%20Kane%20%C4%91ang%20tr%E1%BB%9F%20th%C3%A0nh%20ch%E1%BB%A7%20%C4%91%E1%BB%81%20t%C3%A2m%20%C4%91i%E1%BB%83m%20c%E1%BB%A7a%20th%E1%BB%8B%20tr%C6%B0%E1%BB%9Dng%20m%C3%B9a%20h%C3%A8.%20Tottenham%20d%E1%BB%A9t%20kho%C3%A1t%20kh%C3%B4ng%20ch%E1%BB%8Bu%20b%C3%A1n%20Kane%20v%E1%BB%9Bi%20gi%C3%A1%20n%C3%A0o%20th%E1%BA%A5p%20h%C6%A1n%20150%20tri%E1%BB%87u%20b%E1%BA%A3ng%20v%C3%A0%20Man%20City%20%C4%91%C3%A3%202%20l%E1%BA%A7n%20ra%20gi%C3%A1%20kh%C3%B4ng%20th%C3%A0nh,%20nh%C6%B0ng%20gi%E1%BB%9D%20h%E1%BB%8D%20c%C3%B3%20c%C6%A1%20h%E1%BB%99i%20%C4%91%E1%BB%95i%20sang%20m%E1%BB%A5c%20ti%C3%AAu%20kh%C3%A1c%20v%C3%A0%20l%E1%BA%A1i%20l%C3%A0%20m%E1%BB%99t%20ch%C3%A2n%20s%C3%BAt%20m%C3%A0%20HLV%20Pep%20Guardiola%20r%E1%BA%A5t%20%C6%B0a%20th%C3%ADch%20trong%20th%E1%BB%9Di%20gian%20%C3%B4ng%20d%E1%BA%ABn%20d%E1%BA%AFt%20Bayern.&lang=vi&engine=g3&name=&pitch=0.4&rate=0.6&volume=1&key=hF2UTfLf&gender=male'
+        
+    }
+    var list_new = [
+        'Tin số 1: Đây là bản tin số 1',
+        'Tin số 2: Đây là bản tin số 2',
+        'Tin số 3: Đây là bản tin số 3',
+        'Tin số 4: Đây là bản tin số 4',
+        'Tin số 5: Đây là bản tin số 5',
+        'Tin số 6: Đây là bản tin số 6',
+    ];
+    var i = 0;
+    function play_pause() {
+        let mytext = $('#speech_new').text();
+        // let mytext = 'Th%C3%B4ng%20tin%20n%C3%A0y%20tr%E1%BB%9F%20n%C3%AAn%20';
+        let url = 'https://texttospeech.responsivevoice.org/v1/text:synthesize?lang=vi&engine=g3&name=&pitch=0.4&rate=0.6&volume=1&key=hF2UTfLf&gender=male&text=' + mytext;
+        // alert(url);
+        change(url)
+        // alert(mytext.length);
+        // responsiveVoice.speak(mytext,'Vietnamese Male',{pitch: 0.8,rate: 1.2});
+    }
 
+    function next() {
+        if (i < list_new.length-1){
+            i +=1;
+            let mytext = list_new[i];
+            // let mytext = 'Th%C3%B4ng%20tin%20n%C3%A0y%20tr%E1%BB%9F%20n%C3%AAn%20';
+            let url = 'https://texttospeech.responsivevoice.org/v1/text:synthesize?lang=vi&engine=g3&name=&pitch=0.4&rate=0.6&volume=1&key=hF2UTfLf&gender=male&text=' + mytext;
+            // alert(url);
+            change(url)
+            // alert(mytext.length);
+            // responsiveVoice.speak(mytext,'Vietnamese Male',{pitch: 0.8,rate: 1.2});
+        }
+        else{
+            var audio = $("#player");          
+            audio[0].pause();
+        }
+    }
+    function pre() {
+        if (i > 0){
+            i -=1;
+            let mytext = list_new[i];
+            // let mytext = 'Th%C3%B4ng%20tin%20n%C3%A0y%20tr%E1%BB%9F%20n%C3%AAn%20';
+            let url = 'https://texttospeech.responsivevoice.org/v1/text:synthesize?lang=vi&engine=g3&name=&pitch=0.4&rate=0.6&volume=1&key=hF2UTfLf&gender=male&text=' + mytext;
+            // alert(url);
+            change(url)
+            // alert(mytext.length);
+            // responsiveVoice.speak(mytext,'Vietnamese Male',{pitch: 0.8,rate: 1.2});
+        }
+        else{
+            var audio = $("#player");          
+            audio[0].pause();
+        }
+    }
+    function change(sourceUrl) {
+        var audio = $("#player");      
+        $("#s_mp3").attr("src", sourceUrl);
+        /****************/
+        audio[0].pause();
+        audio[0].load();//suspends and restores all audio element
+
+        //audio[0].play(); changed based on Sprachprofi's comment below
+        audio[0].oncanplaythrough = audio[0].play();
+        /****************/
+    }
+ 
 </script>
-</body>
-</html>
+{% endblock %}
+
 
